@@ -43,8 +43,8 @@ const formatterFn = (value, unit, suffix) => value + unit.slice(0, 1)
 export default ({ app_type_description = '', created_at, track } = {}) => !track || !track.track ? null : (
   <Link href="/" as={createURL(track)}>
     <div className="container">
-      <div className="info">
-        <div className="date">{track.source.display_date}</div>
+      
+    <div className="info">
         <div className="app-info">
           {app_type_description}
           &nbsp;
@@ -56,40 +56,63 @@ export default ({ app_type_description = '', created_at, track } = {}) => !track
           </span>
         </div>
       </div>
+
       <div>
-        <div className="content">
+        <div className="song-title">
           {track.track.title}
         </div>
-        <div>
-          {track.source.artist.name}
+        <div className="artist-name">
+          {track.source.artist.name} 
         </div>
         <div className="subtext">
+        <div className="date">{new Date(track.source.display_date).toLocaleDateString()}</div>
           <VenueInfo track={track} />
         </div>
       </div>
 
-      <div className="listen">Listen</div>
+      
+
+      <div className="listen">Listen >></div>
 
       <style jsx>{`
         .container
           width 100%
           display flex
           flex-direction row
-          padding 12px
+          padding 30px
           border-bottom 1px solid #eee
           cursor pointer
+          &:hover
+            -webkit-transition: all 1s
+            transition: all 1s
+
+            .listen
+              text-decoration: underline;
+         
+        .song-title {
+          font-weight: bold;
+        }    
+
+        .artist-name {
+          margin-bottom: 15px;
+        }
 
         .info
-          margin-right 12px
+          margin-right 50px
+          margin-bottom: 10px;
 
-        .date, .content
+        .content, .date
           font-weight bold
 
         .subtext
-          color: #979797;
-          font-size: 0.7em;
+          //background-color: #979797
+          color: black;
+          padding: 10px 0 10px 0;
+          border-radius: 5px;
+          font-size: 125x;
 
         .listen
+          font-size: 25px;
           margin-left auto
           align-self center
 
@@ -98,6 +121,7 @@ export default ({ app_type_description = '', created_at, track } = {}) => !track
           justify-content space-between
 
         .time-ago
+          width: 50px
           opacity 0.7
 
         .live-track-enter {
